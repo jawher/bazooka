@@ -116,6 +116,9 @@ func (c *context) startJob(params map[string]string, startJob lib.StartJob, comm
 		container: fmt.Sprintf(buildFolderPattern, c.paths.home.container, runningJob.ProjectID, runningJob.ID),
 	}
 	orchestrationEnv := map[string]string{
+		BazookaEnvApiUrl:     c.apiUrl,
+		BazookaEnvSyslogUrl:  c.syslogUrl,
+		BazookaEnvNetwork:    c.network,
 		"BZK_SCM":            project.ScmType,
 		"BZK_SCM_URL":        project.ScmURI,
 		"BZK_SCM_REFERENCE":  refToBuild,
@@ -125,8 +128,6 @@ func (c *context) startJob(params map[string]string, startJob lib.StartJob, comm
 		"BZK_JOB_ID":         runningJob.ID,
 		"BZK_DOCKERSOCK":     c.paths.dockerSock.host,
 		"BZK_JOB_PARAMETERS": string(jobParameters),
-		BazookaEnvApiUrl:     c.apiUrl,
-		BazookaEnvSyslogUrl:  c.syslogUrl,
 	}
 
 	projectSSHKey, err := c.connector.GetProjectKey(project.ID)
@@ -209,6 +210,7 @@ func (c *context) startJob(params map[string]string, startJob lib.StartJob, comm
 		VolumeBinds:   orchestrationVolumes,
 		Env:           orchestrationEnv,
 		Detach:        true,
+		NetworkMode:   c.network,
 		LoggingDriver: "syslog",
 		LoggingDriverConfig: map[string]string{
 			"syslog-address": c.syslogUrl,
