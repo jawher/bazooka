@@ -15,21 +15,10 @@ const (
 	CONFIGFILE = ".bzkcfg"
 )
 
-// TODO handle multiple server
 type Config struct {
-	Username   string `yaml:"username,omitempty"`
-	Password   string `yaml:"password,omitempty"`
-	Auth       string `yaml:"auth"`
-
-	ApiURL     string `yaml:"api_url"`
-	SyslogURL  string `yaml:"syslog_url"`
-	Home       string `yaml:"home"`
-	DockerSock string `yaml:"docker_sock"`
-	SCMKey     string `yaml:"scm_key"`
-	Registry   string `yaml:"registry"`
-	Tag        string `yaml:"tag"`
-
-	MongoURL   string `yaml:"mongo_url"`
+	Username string `yaml:"username,omitempty"`
+	Password string `yaml:"password,omitempty"`
+	Auth     string `yaml:"auth"`
 }
 
 func saveConfig(authConfig *Config) error {
