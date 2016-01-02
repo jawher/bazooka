@@ -14,8 +14,7 @@ import (
 )
 
 const (
-	MX_ENV_PREFIX           = "env::"
-	BazookaEnvJobParameters = "BZK_JOB_PARAMETERS"
+	MX_ENV_PREFIX = "env::"
 )
 
 func init() {
@@ -25,7 +24,6 @@ func init() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
 }
 
 func main() {
